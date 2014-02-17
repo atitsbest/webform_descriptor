@@ -1,0 +1,47 @@
+@table-odd-color: #f1f1f1;
+body {
+  background-color: #f9f9f9;
+  color: #595959;
+}
+
+/* --------------------------------------------------------------------
+ * Bootstrap
+ * ------------------------------------------------------------------- */
+.btn {
+  font-weight: bold;
+
+  &.btn-primary {
+    background-color: #616161;
+    border-color: #616161;
+
+    &:hover {
+      background-color: #3F3F3F;
+    }
+  }
+}
+
+input {
+  &.form-control {
+    border-width: 2px;
+    border-radius: 2px;
+  }
+
+  &.input-lg {
+    font-weight: bold;
+  }
+}
+
+/* --------------------------------------------------------------------
+ * DataTables
+ * ------------------------------------------------------------------- */
+table.dataTable tr.odd { background-color: transparent; }
+table.dataTable tr.even { background-color: transparent; }
+
+table.dataTable tr.odd td.sorting_1 { background-color: transparent; }
+table.dataTable tr.odd td.sorting_2 { background-color: transparent; }
+table.dataTable tr.odd td.sorting_3 { background-color: transparent; }
+table.dataTable tr.even td.sorting_1 { background-color: transparent; }
+table.dataTable tr.even td.sorting_2 { background-color: transparent; }
+table.dataTable tr.even td.sorting_3 { background-color: transparent; }
+
+

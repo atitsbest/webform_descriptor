@@ -1,0 +1,102 @@
+<!-- PAGE HEADER -->
+
+<div ng:controller="ProjectNewCtrl" class="form">
+
+  <h3>Neues Projekt</h3>
+
+  <my-form schema="schema" model="project">
+    <!-- SUBMIT BUTTON -->
+    <button type="submit" class="btn btn-primary" ng:disabled="dynaForm.$invalid">Speichern</button>
+  </my-form>
+
+  -%dynaForm.$valid%-
+
+  <!-- <!&#45;&#45; FORM &#45;&#45;> -->
+  <!-- <form name="projectForm" ng:submit="submitForm()" novalidate> -->
+  <!--  -->
+  <!--   <div class="form&#45;group has&#45;feedback"> -->
+  <!--       <input placeholder="Projekttitel" type="text" name="name" ng:model="project.name" class="form&#45;control input&#45;lg" required> -->
+  <!--       <p class="help&#45;block" ng:show="projectForm.name.$invalid &#38;&#38; !projectForm.name.$pristine">Projekttitel wird benötigt.</p> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <div class="row"> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;6"> -->
+  <!--       <label class="control&#45;label">Kunde</label> -->
+  <!--         <input type="text" name="customer" ng:model="project.customer"  class="form&#45;control"required> -->
+  <!--         <p class="help&#45;block" ng:show="form.customer.$invalid &#38;&#38; !form.customer.$pristine">Kunde wird benötigt.</p> -->
+  <!--     </div> -->
+  <!--  -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;6"> -->
+  <!--       <label class="control&#45;label">Projektleiter</label> -->
+  <!--         <input type="text" name="leader" ng:model="project.leader"  class="form&#45;control"required> -->
+  <!--         <p class="help&#45;block" ng:show="form.leader.$invalid &#38;&#38; !form.leader.$pristine">Projektleiter wird benötigt.</p> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <div class="row"> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;8"> -->
+  <!--       <label class="control&#45;label">Technologien</label> -->
+  <!--       <input type="text" name="technologies" ng:model="project.techs"  class="form&#45;control"> -->
+  <!--     </div> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;4"> -->
+  <!--       <label class="control&#45;label">Risiko</label> -->
+  <!--       <div class=""> -->
+  <!--         <label class="checkbox&#45;inline" ng:repeat="r in allRisks"> -->
+  <!--           <input type="radio" ng:model="project.risk" value="&#45;%r%&#45;"> &#45;%r%&#45; -->
+  <!--         </label> -->
+  <!--       </div> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <br /> -->
+  <!--  -->
+  <!--   <div class="form&#45;group has&#45;feedback"> -->
+  <!--     <h4 class="control&#45;label" style="display:inline&#45;block;">Verrechnung</h4> -->
+  <!--     <label class="checkbox&#45;inline" ng:repeat="r in allAccountingModes"> -->
+  <!--       <input type="radio" ng:model="project.accountingMode" value="&#45;%r%&#45;"> &#45;%r%&#45;  -->
+  <!--     </label> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <div class="row"> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;4"> -->
+  <!--       <label class="control&#45;label">BMD&#45;Auftragsnummer</label> -->
+  <!--       <input type="text" name="bmdOrdernumber" ng:model="project.bmdOrdernumber" class="form&#45;control" ng:maxlength="20"> -->
+  <!--       <p class="help&#45;block" ng:show="form.bmdOrdernumber.$invalid &#38;&#38; !form.bmdOrdernumber.$pristine">BMD Auftragsnummer ist zu lang.</p> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <div class="row"> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;6"> -->
+  <!--       <label class="control&#45;label">Bestellvolumen in €</label> -->
+  <!--       <input type="number" name="orderAmount" ng:model="project.orderAmount" class="form&#45;control" required> -->
+  <!--       <p class="help&#45;block" ng:show="form.orderAmount.$invalid &#38;&#38; !form.orderAmount.$pristine">Bestellvolumen in € wird benötigt.</p> -->
+  <!--     </div> -->
+  <!--  -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;6"> -->
+  <!--       <label class="control&#45;label">in PT</label> -->
+  <!--       <input type="number" name="orderAmountDays" ng:model="project.orderAmountDays" class="form&#45;control" required> -->
+  <!--       <p class="help&#45;block" ng:show="form.orderAmountDays.$invalid &#38;&#38; !form.orderAmountDays.$pristine">Bestellvolumen in PT wird benötigt.</p> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <br /> -->
+  <!--  -->
+  <!--   <div class="form&#45;group has&#45;feedback"> -->
+  <!--     <h4 class="control&#45;label" style="display:inline&#45;block;">Status</h4> -->
+  <!--     <label class="checkbox&#45;inline" ng:repeat="r in allStates"> <input type="radio" ng:model="project.state" value="&#45;%r%&#45;"> &#45;%r%&#45; </label> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <div class="row"> -->
+  <!--     <div class="form&#45;group has&#45;feedback col&#45;sm&#45;4"> -->
+  <!--       <label class="control&#45;label">Auftragsdatum</label> -->
+  <!--       <input type="text" name="orderDate" ng:model="project.orderDate" class="form&#45;control datepicker" required> -->
+  <!--       <p class="help&#45;block" ng:show="form.orderDate.$invalid &#38;&#38; !form.orderDate.$pristine">Auftragsdatum muss angegeben werden.</p> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!--  -->
+  <!--   <br /> -->
+  <!--   <!&#45;&#45; SUBMIT BUTTON &#45;&#45;> -->
+  <!--   <button type="submit" class="btn btn&#45;primary" ng:disabled="projectForm.$invalid">Speichern</button> -->
+  <!--  -->
+  <!-- </form> -->
+</div>
