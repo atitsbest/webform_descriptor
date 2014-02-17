@@ -78,6 +78,24 @@ angular.module('Eriksson')
     _registerInputProvider('text', _createTextInputElement);
 
     /**
+     * Money Input Provider.
+     **/
+    _registerInputProvider('money', function(fieldName, field, modelName) {
+        var extField = _.extend(field, {type: 'text', pattern: /^\d+(\.\d{1,2})?$/ });
+        return _createTextInputElement(fieldName, extField, modelName);
+    });
+
+    /**
+     * Money Input Provider.
+     **/
+    _registerInputProvider('date', function(fieldName, field, modelName) {
+        var extField = _.extend(field, {type: 'text' }),
+            element =  _createTextInputElement(fieldName, extField, modelName);
+
+        return element.addClass('datepicker');
+    });
+
+    /**
      *
      **/
     var _createInputElement = function (fieldName, field, modelName) {

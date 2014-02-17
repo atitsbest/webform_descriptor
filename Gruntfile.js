@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 
     shell: {
       go: {
-        command: 'grunt watch & rerun web/proj',
+        command: 'grunt watch & rerun github.com/atitsbest/webform_descriptor',
         options: {
           stdout: true
         }

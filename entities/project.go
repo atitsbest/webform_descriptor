@@ -2,7 +2,7 @@ package entities
 
 import (
   "time"
-  vo "web/proj/valueobjects"
+  vo "github.com/atitsbest/webform_descriptor/valueobjects"
 )
 
 type ProjectId string

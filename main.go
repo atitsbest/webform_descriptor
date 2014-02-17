@@ -10,8 +10,8 @@ import (
   "github.com/codegangsta/martini-contrib/render"
   "github.com/codegangsta/martini-contrib/binding"
 
-  "web/proj/entities"
-  "web/proj/valueobjects"
+  "github.com/atitsbest/webform_descriptor/entities"
+  "github.com/atitsbest/webform_descriptor/valueobjects"
 )
 
 type (
@@ -21,16 +21,16 @@ type (
 
   ProjectPostModel struct {
     AccountingMode string
-    BMDOrderNumber string
-    Customer string
     Leader string
     Name string
-    OrderAmount float64
-    OrderAmountDays uint
+    OrderAmount float64 `json:",string"`
     OrderDate string
     Risk string
     State string
-    Techs string
+    // BMDOrderNumber string
+    // Customer string
+    // OrderAmountDays uint
+    // Techs string
   }
 )
 
@@ -40,14 +40,14 @@ func (m *ProjectPostModel) toProject() entities.Project {
     // ParentId: nil,
     // OrderDate: time.Parse("", m.OrderDate),
     // ApprovalDate: time.Tick(0),
-    BMDOrderNumber: m.BMDOrderNumber,
-    Customer: m.Customer,
+    // BMDOrderNumber: m.BMDOrderNumber,
+    // Customer: m.Customer,
     Risk: m.Risk,
     AccountingMode: m.AccountingMode,
     Leader: m.Leader,
-    Techs: m.Techs,
+    // Techs: m.Techs,
     OrderAmount: valueobjects.Money(m.OrderAmount),
-    OrderAmountDays: valueobjects.WorkAmount(m.OrderAmountDays),
+    // OrderAmountDays: valueobjects.WorkAmount(m.OrderAmountDays),
     AlreadyInvoiced: false,
     AchieveAmount: valueobjects.Money(0),
     AchiveAmountDays: valueobjects.WorkAmount(0),

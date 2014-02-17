@@ -29,6 +29,10 @@ angular.module('Eriksson').controller('ProjectNewCtrl', ['$scope', 'Projects', f
         title: 'Projektleiter', required: true,
         pattern: /^[A-Z][a-z]{2}[A-Z][a-z]$/
       },
+      'orderAmount': {
+        title: 'Auftragssumme', required: true,
+        type: 'money'
+      },
       'accountingMode': {
         title: 'Verrechnungsmodus',
         type: 'radio',
@@ -43,6 +47,10 @@ angular.module('Eriksson').controller('ProjectNewCtrl', ['$scope', 'Projects', f
         title: 'Technologien',
         type: 'checkbox',
         values: ['C#','F#','JavaScript','SharePoint','Progress']
+      },
+      'orderDate': {
+        title: 'Bestelldatum', required: true,
+        type: 'date'
       }
 
       /*,
@@ -51,10 +59,13 @@ angular.module('Eriksson').controller('ProjectNewCtrl', ['$scope', 'Projects', f
     }
   };
 
-  $('.datepicker').datetimepicker({
-    language: 'de',
-    pickTime: false
-  });
+  // HAAAAACK!
+  setTimeout(function() {
+    $('.datepicker').datetimepicker({
+      language: 'de',
+      pickTime: false
+    });
+  }, 200);
 
   $scope.submitForm = function() {
     alert('SUBMIT');
