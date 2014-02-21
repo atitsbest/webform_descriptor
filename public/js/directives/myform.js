@@ -59,30 +59,60 @@ angular.module('Eriksson')
      **/
     var _createSelectElement = function(fieldName, field, modelName) {
         var html = '<select class="form-control" name="'+fieldName+'" ng:model="'+modelName+'.'+fieldName+'" ng:options="m for m in schema.fields.'+fieldName+'.values"></select>';
-        return html;
+        return angular.element(html);
     };
     _registerInputProvider('select', _createSelectElement);
 
     /**
      *
      **/
-    var _createTextInputElement = function(fieldName, field, modelName) {
+    var _createTextInputElement = function(fieldName, field, modelName, $scope) {
+        var vals = _.pick.apply(null, [field].concat(_validationKeys)),
+            valStr = _(vals).map(function (v, k) {
+                return 'ng:' + k + '="' + v + '"';
+            }).join(" ");
+
+        var el = angular.element(
+                '<input type="' + (field.type || 'text') + '" class="form-control" id="' + fieldName + '" name="' + fieldName + '"  ng:model="'+modelName+'.' + fieldName + '" ' + valStr + ' />');
+
+        if ($scope && _.isArray($scope[modelName][fieldName])) {
+          el.attr('ng:list', '');
+        }
+
+        return el;
+    };
+    _registerInputProvider('text', _createTextInputElement);
+
+    /**
+     *
+     **/
+    var _createTextareaElement = function(fieldName, field, modelName) {
         var vals = _.pick.apply(null, [field].concat(_validationKeys)),
             valStr = _(vals).map(function (v, k) {
                 return 'ng:' + k + '="' + v + '"';
             }).join(" ");
 
         return angular.element(
-                '<input type="' + (field.type || 'text') + '" class="form-control" id="' + fieldName + '" name="' + fieldName + '"  ng:model="'+modelName+'.' + fieldName + '" ' + valStr + ' />');
+                '<textarea class="form-control" id="' + fieldName + '" name="' + fieldName + '"  ng:model="'+modelName+'.' + fieldName + '" ' + valStr + '></textarea>');
     };
-    _registerInputProvider('text', _createTextInputElement);
+    _registerInputProvider('textarea', _createTextareaElement);
 
     /**
      * Money Input Provider.
      **/
     _registerInputProvider('money', function(fieldName, field, modelName) {
-        var extField = _.extend(field, {type: 'text', pattern: /^\d+(\.\d{1,2})?$/ });
+        var extField = _.extend(field, {type: 'number', pattern: /^\d+(\.\d{1,2})?$/ });
         return _createTextInputElement(fieldName, extField, modelName);
+    });
+
+    /**
+     * Ganzzahl Input Provider.
+     **/
+    _registerInputProvider('number', function(fieldName, field, modelName) {
+        var extField = _.extend(field, {type: 'number' }),
+            element = _createTextInputElement(fieldName, extField, modelName);
+
+        return element;
     });
 
     /**
@@ -92,18 +122,18 @@ angular.module('Eriksson')
         var extField = _.extend(field, {type: 'text' }),
             element =  _createTextInputElement(fieldName, extField, modelName);
 
-        return element.addClass('datepicker');
+        return element.attr('bs-datepicker', '');
     });
 
     /**
      *
      **/
-    var _createInputElement = function (fieldName, field, modelName) {
+    var _createInputElement = function (fieldName, field, modelName, $scope) {
         var type = field.type || 'text',
             provider = inputProviders[type];
 
-        if (provider === undefined) { throw "Ungültiger Feldtype ' field.type ' im Formular!"; }
-        return provider(fieldName, field, modelName);
+        if (provider === undefined) { throw "Ungültiger Feldtype '"+field.type+"' im Formular!"; }
+        return provider(fieldName, field, modelName, $scope);
     };
 
     /**
@@ -141,10 +171,10 @@ angular.module('Eriksson')
             // Alle Felder erstellen.
             _(fieldNames).each(function (fn) {
                 var field = schema.fields[fn],
-                    group = angular.element('<div class="form-group" ng:class="{\'hasError\':'+schema.name+'.'+fn+'.$invalid}"></div>');
+                    group = angular.element('<div class="form-group" ng:class="{\'has-error\':'+schema.name+'.'+fn+'.$invalid}"></div>');
 
                 group.append(_createLabelElement(fn, field));
-                group.append(_createInputElement(fn, field, modelName));
+                group.append(_createInputElement(fn, field, modelName, $scope));
                 _(_createErrorMessageElements(schema.name, fn, field)).each(function (m) { group.append(m); });
                 form.append(group);
             });

@@ -1,10 +1,12 @@
 <html ng:app="Eriksson">
   <head>
-    <title>DataTables</title>
+    <title>Eriksson</title>
 
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
     <!-- build:css /css/all.min.css -->
+    <link rel="stylesheet" href="/css/lib/toastr.css"/>
+    <link rel="stylesheet" href="/css/lib/nprogress.css"/>
     <link rel="stylesheet" href="/css/lib/datepicker.css"/>
     <link rel="stylesheet" href="/css/base.css"/>
     <!-- endbuild -->
@@ -35,11 +37,11 @@
           <li
           class="active">
           <a
-            href="../getting-started">Projekte</a>
+            href="#/projects">Projekte</a>
           </li>
           <li>
           <a
-            href="../components">Kunden</a>
+            href="/customers">Kunden</a>
           </li>
         </ul>
         <ul
@@ -53,25 +55,33 @@
     </div>
   </header>
 
-    <div class="container">
-      {{yield}}
+    <div class="container" ng:view>
     </div>
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-resource.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-sanitize.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="http://rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.min.js"></script>
+    <script src="http://rawgithub.com/mgcrea/angular-strap/master/dist/angular-strap.tpl.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
     <script src="http://underscorejs.org/underscore-min.js"></script>
     <!-- build:js /js/all.min.js -->
+    <script src="/js/lib/nprogress.js"></script>
     <script src="/js/lib/moment.js"></script>
-    <script src="/js/lib/datepicker.js"></script>
+    <script src="/js/lib/toastr.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/directives/formgroup.js"></script>
     <script src="/js/directives/myform.js"></script>
     <script src="/js/services/ProjectService.js"></script>
+    <script src="/js/controllers/ProjectForm.js"></script>
+    <script src="/js/controllers/ProjectIndexCtrl.js"></script>
     <script src="/js/controllers/ProjectNewCtrl.js"></script>
+    <script src="/js/controllers/ProjectEditCtrl.js"></script>
     <!-- endbuild -->
   </body>
 </html>

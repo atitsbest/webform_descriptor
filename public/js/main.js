@@ -1,27 +1,65 @@
-angular.module('Eriksson', ['ngResource'])
-.config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('-%');
-    $interpolateProvider.endSymbol('%-');
+Date.prototype.toJSON = function (key) {
+    function f(n) {
+        // Format integers to have at least two digits.
+        return n < 10 ? '0' + n : n;
+    }
+
+    return this.getUTCFullYear()   + '-' +
+        f(this.getUTCMonth() + 1) + '-' +
+        f(this.getUTCDate())      + 'T' +
+        f(this.getUTCHours())     + ':' +
+        f(this.getUTCMinutes())   + ':' +
+        f(this.getUTCSeconds())   + '.' +
+        f(this.getUTCMilliseconds())   + 'Z';
+};
+
+
+angular.module('SharedServices', [])
+.config(function ($httpProvider) {
+    $httpProvider.responseInterceptors.push('myHttpInterceptor');
+    var spinnerFunction = function (data, headersGetter) {
+        NProgress.start();
+        return data;
+    };
+    $httpProvider.defaults.transformRequest.push(spinnerFunction);
+})
+// register the interceptor as a service, intercepts ALL angular ajax http calls
+.factory('myHttpInterceptor', function ($q, $window) {
+    return function (promise) {
+        return promise.then(function (response) {
+            // do something on success
+            // todo hide the spinner
+            //alert('stop spinner');
+            NProgress.done();
+            return response;
+
+        }, function (response) {
+            // do something on error
+            // todo hide the spinner
+            //alert('stop spinner');
+            NProgress.done();
+            return $q.reject(response);
+        });
+    };
 });
 
-$(function() {
-  $('#table_id').dataTable({
-    "bPaginate": false,
-    "bLengthChange": false,
-    "bFilter": true,
-    "bSort": true,
-    "bInfo": false,
-    "bAutoWidth": true,
-    "bDeferRender": true,
-    "sAjaxSource": "api/projects",
-    "aoColumns": [
-      {"sTitle": "Projekttitel", "mData": "Name"},
-      {"sTitle": "Projktleiter", "mData": "Leader"},
-      {"sTitle": "Technologien", "mData": "Techs"},
-      {"sTitle": "Bestellvolumen [€]", "mData": "OrderAmount"},
-      {"sTitle": "Bestellvolumen [PT]", "mData": "OrderAmountDays"}
-    ],
-    "sAjaxDataProp": "",
-  });
-});
+angular.module('Eriksson', ['ngResource', 'ngRoute', 'ngSanitize', 'SharedServices', 'mgcrea.ngStrap'])
+
+.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.
+        when('/projects', { templateUrl: 'partials/project/index.html', controller: 'ProjectIndexCtrl' }).
+        when('/projects/new', { templateUrl: 'partials/project/new.html', controller: 'ProjectNewCtrl' }).
+        when('/projects/edit/:id', { templateUrl: 'partials/project/edit.html', controller: 'ProjectEditCtrl' }).
+        otherwise({
+            redirectTo: '/projects'
+        });
+}])
+
+.config(['$datepickerProvider', function($datepickerProvider) {
+    angular.extend($datepickerProvider.defaults, {
+        dateFormat: 'dd.MM.yyyy',
+        autoclose: true,
+        startWeek: 1
+    });
+}]);
 

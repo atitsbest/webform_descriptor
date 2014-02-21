@@ -1,7 +1,32 @@
 @table-odd-color: #f1f1f1;
+@border-color: #d8d8d8;
+@link-color: #666;
+@form-background: #f6f8f8;
+@h-color: #788991;
+@table-hover-color: #616161;
+
 body {
-  background-color: #f9f9f9;
+  background-color: #fff;
   color: #595959;
+}
+
+h1,h2,h3,h4,h5 {
+    color: @h-color;
+}
+
+a {
+    color: @link-color;
+
+    &:hover {
+        color: darken(@link-color, 50%);
+    }
+}
+
+form {
+    // background: @form-background;
+    label {
+        color: @h-color;
+    }
 }
 
 /* --------------------------------------------------------------------
@@ -13,6 +38,10 @@ body {
   &.btn-primary {
     background-color: #616161;
     border-color: #616161;
+    border-radius: 2px;
+    padding: 7px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
     &:hover {
       background-color: #3F3F3F;
@@ -22,7 +51,7 @@ body {
 
 input {
   &.form-control {
-    border-width: 2px;
+    border-width: 1px;
     border-radius: 2px;
   }
 
@@ -32,16 +61,70 @@ input {
 }
 
 /* --------------------------------------------------------------------
+ * Datepicker
+ * ------------------------------------------------------------------- */
+.datepicker.dropdown-menu {
+    height: 270px;
+    width: 250px;
+    button {
+        border: 0;
+        outline: 0;
+    }
+    thead {
+      th { font-size: 14px; }
+    }
+    tbody {
+        height: 180px;
+        button {
+            padding: 6px;
+        }
+    }
+}
+.datepicker.dropdown-menu.datepicker-mode-1 tbody button,
+.datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+    height: 65px;
+}
+
+/* --------------------------------------------------------------------
+ * Timepicker
+ * ------------------------------------------------------------------- */
+.timepicker.dropdown-menu {
+    padding: 0 4px;
+    button {
+        border: 0;
+        outline: 0;
+    }
+    tbody {
+        button {
+            padding: 6px;
+        }
+    }
+}
+
+
+/* --------------------------------------------------------------------
  * DataTables
  * ------------------------------------------------------------------- */
-table.dataTable tr.odd { background-color: transparent; }
-table.dataTable tr.even { background-color: transparent; }
+table.dataTable {
+    tr.odd { background-color: transparent; }
+    tr.even { background-color: transparent; }
+    thead th { border-bottom: 2px solid @border-color; }
 
-table.dataTable tr.odd td.sorting_1 { background-color: transparent; }
-table.dataTable tr.odd td.sorting_2 { background-color: transparent; }
-table.dataTable tr.odd td.sorting_3 { background-color: transparent; }
-table.dataTable tr.even td.sorting_1 { background-color: transparent; }
-table.dataTable tr.even td.sorting_2 { background-color: transparent; }
-table.dataTable tr.even td.sorting_3 { background-color: transparent; }
-
-
+    tbody {
+        tr.odd, tr.even {
+            td.sorting_1,
+            td.sorting_2,
+            td.sorting_3 { background-color: #f1f1f1; }
+            &:hover {
+                td {
+                    background-color: @table-hover-color;
+                    color: #fff;
+                    cursor: pointer;
+                }
+                td.sorting_1,
+                td.sorting_2,
+                td.sorting_3 { background-color: @table-hover-color; }
+            }
+        }
+    }
+}

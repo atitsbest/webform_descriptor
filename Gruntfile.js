@@ -35,7 +35,8 @@ module.exports = function(grunt) {
           cleancss: true
         },
         files: {
-          'public/css/base.css': 'public/css/base.less'
+          'public/css/base.css': 'public/css/base.less',
+          'public/css/lib/toastr.css': 'public/css/lib/toastr.less'
         },
       },
       production: {
@@ -62,7 +63,7 @@ module.exports = function(grunt) {
 
     watch: {
       less: {
-        files: ['public/css/*.less'],
+        files: ['public/css/**/*.less'],
         tasks: ['less:development',]
       },
       js: {
